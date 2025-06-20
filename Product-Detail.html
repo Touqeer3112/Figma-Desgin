@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Detail Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background: #f5f5f5; color: #333; }
+   
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 10px 30px;
+      font-size: 14px;
+      color: #555;
+    }
+    .topbar-left {
+      display: flex;
+      gap: 20px;
+    }
+    .topbar-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .topbar-right img {
+      width: 24px;
+      height: 16px;
+      margin-left: 6px;
+    }
+    .topbar-left span:hover, .topbar-right span:hover {
+      color: #2196f3;
+      cursor: pointer;
+    }
+.topbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: white; 
+  color: rgb(19, 18, 18);
+  gap: 15px;
+}
+
+.logo {
+  font-size: 24px;
+  color: blue;
+  font-weight: bold;
+}
+
+.search {
+  padding: 8px;
+  width: 300px;
+  margin-left: 25%;
+  border-radius: 4px;
+  border: none;
+}
+
+.category-dropdown {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.search-btn {
+  background-color: rgb(30, 115, 243);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  gap: 25px;
+  color: #111010;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.action-item i {
+    color: black;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+    .breadcrumb { padding: 16px 30px; background: #fff; font-size: 14px; color: #777; }
+
+    .product-section-wrapper {
+      display: grid;
+      grid-template-columns: 60% 38%;
+      gap: 2%;
+      padding: 30px;
+      background: #fff;
+      border: 1px solid #ddd;
+    }
+
+    .left-side, .right-side {
+      padding: 20px;
+    }
+
+    .left-top {
+      display: flex;
+      gap: 30px;
+    }
+    .product-img img {
+      width: 300px;
+    }
+    .thumbs {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .thumbs img {
+      width: 50px;
+      border: 1px solid #ccc;
+      padding: 2px;
+    }
+
+    .product-details h1 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .in-stock {
+      color: green;
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .in-stock i {
+      color: green;
+    }
+
+    .rating-line {
+      font-size: 16px;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .rating-line i { color: gold; font-size: 18px; }
+
+    .price-box {
+      border: 1px solid #ffc299;
+      background: #fff3ec;
+      padding: 15px;
+      margin-bottom: 25px;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+    .price-box div {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .price-box .price-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 0 10px;
+    }
+    .price-box .price-item:not(:last-child)::after {
+      content: '|';
+      position: absolute;
+      right: -25px;
+      top: 0;
+      height: 100%;
+      font-size: 32px;
+      color: #aaa;
+      line-height: 70px;
+    }
+    .price-box .highlight {
+      color: red;
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .price-box small {
+      font-size: 13px;
+      color: #444;
+    }
+
+    .meta-info {
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+    .meta-info .block {
+      margin-bottom: 15px;
+    }
+    .meta-info p {
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 15px 0;
+    }
+
+    .seller-box {
+      /* margin-top: 10px; */
+      display: flex;
+      flex-direction: column;
+       align-items: center;
+
+    }
+    .seller-content {
+      display: flex;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      gap: 15px;
+      align-items: flex-start;
+      max-width: 350px;
+      flex-direction: column;
+    }
+    .badge-icon {
+      background: #d4edee;
+      color: #05968e;
+      padding: 8px 14px;
+      font-weight: bold;
+      font-size: 18px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+    .seller-info {
+      width: 100%;
+    }
+    .seller-info hr {
+      margin: 10px 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+    .seller-info p {
+      font-size: 14px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .seller-info button {
+      padding: 10px;
+      background: #0074ff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+    /* .profile-btn {
+      background: #fff;
+      color: #0074ff;
+      border: 1px solid #0074ff;
+    } */
+  .profile-btn {
+  background: white;
+  color: #0074ff;
+  border: 1px solid #5c5c5c; 
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.save-icon {
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 10px auto 0 auto;
+  width: fit-content;
+}
+
+
+
+.save-icon:hover{
+      color: #0074ff;
+    }
+    .product-info-section {
+  display: flex;
+  gap: 20px;
+  padding: 30px;
+}
+.tabs-box {
+  flex: 3;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.tabs {
+  display: flex;
+  gap: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.tab {
+  cursor: pointer;
+  color: #333;
+}
+.tab.active {
+  color: #0074ff;
+  font-weight: bold;
+}
+.tab-content {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.7;
+}
+.tab-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+.tab-content td {
+  border: 1px solid #8f8e8e;
+  padding: 8px;
+}
+
+.tab-content ul {
+  padding-left: 18px;
+}
+
+.you-may-like-box {
+  flex: 1.3;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.you-may-like-box h4 {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.suggested-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.suggested-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  transition: background 0.3s;
+  padding: 5px;
+  border-radius: 5px;
+}
+.suggested-item:hover {
+  background: #f5f5f5;
+}
+.suggested-item img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ddd;
+  object-fit: cover;
+}
+.suggested-list .title{
+  font-size: 19px;
+  /* font-weight: 300; */
+}
+.related-products {
+  margin: 50px 30px 40px;
+}
+.related-products h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333;
+}
+.related-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+.related-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+  border-radius: 5px;
+  transition: 0.3s ease;
+}
+.related-item img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  
+  margin-bottom: 10px;
+}
+.related-item p {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 6px;
+}
+.related-item span {
+  font-size: 13px;
+  color: #666;
+}
+.related-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0,0);
+}
+
+.discount-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #0893e4 49.8%, #0961db 50.2%);
+  padding: 20px 30px;
+  border-radius: 5px;
+  margin: 50px 30px;
+  color: white;
+}
+
+.banner-left {
+  flex: 1;
+}
+
+.banner-left p {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.banner-left small {
+  font-size: 13px;
+  color: #f0f0f0;
+}
+
+.banner-right button {
+  background-color: #ff7b00;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.banner-right button:hover {
+  background-color: #e06d00;
+}
+
+.footer {
+  background: #ffffff;
+  padding: 60px 80px;
+  color: #333;
+  font-family: sans-serif;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 60px;
+  text-align: left;
+}
+
+.brand {
+  max-width: 240px;
+  flex: 1;
+}
+
+.brand h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2196f3;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.brand p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  
+}
+
+.social-icons div {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f8f5f5;
+  background: rgb(161, 161, 161);
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.footer-links {
+  display: flex;
+  flex: 3;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: flex-start;
+}
+
+.footer-links > div {
+  min-width: 140px;
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.footer-links h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.footer-links p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* .get-app img {
+  width: 120px;
+  margin: 8px 0;
+  display: block;
+  max-height: 45px;
+  height: auto;
+} */
+.get-app img {
+  width: 120px;
+  margin: 8px 0;
+  display: block;
+  height: 40px; /* fixed height */
+  object-fit: contain;
+}
+
+.footer-bottom {
+  margin-top: 50px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.footer-bottom .lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+  </style>
+</head>
+<body>
+  <header class="topbar">
+  <div class="logo"><i class="fa-solid fa-bag-shopping"></i><a href="index.html">Brand</a></div>
+  
+  <input type="text" class="search" placeholder="Search here..." />
+  
+  <select class="category-dropdown">
+    <option>All category</option>
+    <option>Automobiles</option>
+    <option>Clothes and wear</option>
+    <option>Computer and tech</option>
+    <option>Home interiors</option>
+  </select>
+
+  <button class="search-btn">Search</button>
+
+  <div class="actions">
+    <div class="action-item">
+      <i class="fa-regular fa-user"></i>
+      <span>Profile</span>
+    </div>
+    <div class="action-item">
+      <i class="fa-regular fa-envelope"></i>
+      <span>Message</span>
+    </div>
+    <div class="action-item">
+      <i class="fa-solid fa-box"></i>
+      <span>Orders</span>
+    </div>
+    <div class="action-item">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>My cart</span>
+    </div>
+  </div>
+</header>
+<div class="topbar">
+  <div class="topbar-left">
+  <!-- <span>All Categories</span> -->
+     <span><a href="index.html" style="text-decoration: none; color: inherit;">All Categories</a></span>
+
+  <span>Hot Offers</span>
+  <span>Gift Boxes</span>
+  <span>Projects</span>
+  <span>Menu Items</span> 
+  <span>Help</span>
+
+  <span><a href="product-listing.html" style="text-decoration: none; color: inherit;">Product</a></span>
+  <span><a href="Asseries.html" style="text-decoration: none; color: inherit;">Best product</a></span>
+  <!-- <span><a href="faq.html" style="text-decoration: none; color: inherit;">FAQ</a></span> -->
+</div>
+  <div class="topbar-right">
+    <span>English,USD <i class="fa-solid fa-chevron-down"></i></span>
+    <!-- <span>USD</span> -->
+    <span>Ship to <i class="fa-solid fa-chevron-down"></i><img src="https://flagcdn.com/w40/de.png" alt="Germany"></span>
+  </div>
+</div>
+<!-- <div class="breadcrumb">Home &gt; Clothing &gt; Men’s wear &gt; Summer clothing< -->
+  <div class="breadcrumb">Home &gt; Clothing &gt; Men’s wear &gt; Summer clothing</div>
+
+  <section class="product-section-wrapper">
+    <!-- LEFT SIDE -->
+    <div class="left-side">
+      <div class="left-top">
+        <div class="product-img">
+          <img src="./images/T shirt-cart.jpeg" alt="T-shirt Image" />
+          <div class="thumbs">
+            <img src="./images/T shirt-cart2.jpeg" />
+            <img src="./images/T shirt-cart3.jpeg" />
+            <img src="./images/T shirt-cart4.jpeg" />
+            <img src="./images/T shirt-cart5.jpeg" />
+            <img src="./images/T shirt-cart6.jpeg" />
+          </div>
+        </div>
+        <div class="product-details">
+          <div class="in-stock"><i class="fas fa-check-circle"></i> In stock</div>
+          <h1>Mens Long Sleeve T-shirt Cotton Base Layer Slim Muscle</h1>
+          <div class="rating-line">
+            <i class="fas fa-star"></i> 3.3
+            <span>| <i class="fas fa-comment"></i> 32 reviews</span>
+            <span>| <i class="fas fa-shopping-basket"></i> 154 sold</span>
+          </div>
+
+          <div class="price-box">
+            <div>
+              <div class="price-item">
+                <span class="highlight">$98.00</span>
+                <small>(30-100 pcs)</small>
+              </div>
+              <div class="price-item">
+                <span>$90.00</span>
+                <small>(100-700 pcs)</small>
+              </div>
+              <div class="price-item">
+                <span>$78.00</span>
+                <small>(700+ pcs)</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="meta-info">
+            <div class="block">
+              <p><strong>Type:</strong> Classic shoes</p>
+              <p><strong>Material:</strong> Plastic</p>
+              <p><strong>Design:</strong> Modern nice</p>
+            </div>
+            <hr />
+            <div class="block">
+              <p><strong>Customization:</strong> Customized logo and design packages</p>
+              <p><strong>Protection:</strong> Refund Policy</p>
+              <p><strong>Warranty:</strong> 2 years full warranty</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right-side">
+      <div class="seller-box">
+        <div class="seller-content">
+          <div class="badge-icon">R</div>
+          <div class="seller-info">
+            <p><strong>Supplier:</strong><br><span>Roguin Trading LLC</span></p>
+            <hr />
+              <p>
+              <img src="https://flagcdn.com/w40/de.png" alt="Germany Flag"style="width: 18px; height: 14px; margin-right: 6px;" />Germany, Berlin</p>
+            <!-- <p><i class="fas fa-map-marker-alt"></i> <img src="https://flagcdn.com/w40/de.png" alt="Germany">Germany, Berlin</p> -->
+            <p><i class="fas fa-check-circle"></i> Verified Seller</p>
+            <p><i class="fas fa-globe"></i> Worldwide Shipping</p>
+            <button>Send Inquiry</button>
+            </div> 
+            <button class="profile-btn">Seller's profile</button>
+          
+        </div>
+         <div class="save-icon"><i class="far fa-heart"></i> Save for later</div>
+      </div>
+    </div>
+  </section>
+</body>
+
+<section class="product-info-section">
+  <!-- Left side: Tabs -->
+  <div class="tabs-box">
+    <div class="tabs">
+      <div class="tab active">Description</div>
+      <div class="tab">Reviews</div>
+      <div class="tab">Shipping</div>
+      <div class="tab">About seller</div>
+    </div>
+    <div class="tab-content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation...</p>
+      <table>
+        <tr><td>Model</td><td>#8786867</td></tr>
+        <tr><td>Style</td><td>Classic style</td></tr>
+        <tr><td>Certificate</td><td>ISO-898921212</td></tr>
+        <tr><td>Size</td><td>34mm x 450mm x 19mm</td></tr>
+        <tr><td>Memory</td><td>36GB RAM</td></tr>
+      </table>
+      <ul>
+        <li>Some great feature name here</li>
+        <li>Lorem ipsum dolor sit amet</li>
+        <li>Duis aute irure dolor</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Right side: You may like -->
+  <div class="you-may-like-box">
+    <h4>You may like</h4>
+    <div class="suggested-list">
+      <div class="suggested-item">
+        <img src="./images/Men Blazers Sets Elegant Formal.jpg" />
+        <div>
+          <div class="title">Men Blazers Sets Elegant Formal</div>
+          <div>$7.00 - $99.50</div>
+        </div>
+      </div>
+      <div class="suggested-item">
+        <img src="./images/Men Shirt Sleeve Polo Contrast.jpeg" />
+        <div>
+          <div class="title">Men Shirt Sleeve Polo Contrast</div>
+          <div>$7.00 - $99.50</div>
+        </div>
+      </div>
+      <div class="suggested-item">
+        <img src="./images/Apple Watch Series 7.jpg" />
+        <div>
+          <div class="title">Apple Watch Series Space Gray</div>
+          <div>$7.00 - $99.50</div>
+        </div>
+      </div>
+      <div class="suggested-item">
+        <img src="./images/Basketball crew Stock Long Stuff.jpeg" />
+        <div>
+          <div class="title">Basketball crew Stock Long Stuff</div>
+          <div>$7.00 - $99.50</div>
+        </div>
+      </div>
+      <div class="suggested-item">
+        <img src="./images/New summer Men's castrol t-shirt.jpeg" />
+        <div>
+          <div class=" title">New summer Men's castrol t-shirt</div>
+          <div>$7.00 - $99.50</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Products -->
+<section class="related-products">
+  <h3>Related Products</h3>
+  <div class="related-list">
+    <div class="related-item">
+      <img src="./images/Xiaomi Redmi 8 Original.jpeg" alt="Phone" />
+      <p>Xiaomi Redmi 8 Original</p>
+      <span>$32.00 - $40.00</span>
+    </div>
+    <div class="related-item">
+      <img src="./images/Apple Watch Series 7.jpg" alt="Apple Watch" />
+      <p>Apple Watch Series 7</p>
+      <span>$199.00 - $250.00</span>
+    </div>
+    <div class="related-item">
+      <img src="./images/headphone.png" alt="Headphone" />
+      <p>Wireless Noise Cancelling Headphones</p>
+      <span>$120.00 - $170.00</span>
+    </div>
+    <div class="related-item">
+      <img src="./images/Blue watllet pot for men leather material.jpeg" alt="Wallet" />
+      <p>Leather Wallet for Men</p>
+      <span>$15.00 - $25.00</span>
+    </div>
+    <div class="related-item">
+      <img src="./images/camera.png" alt="Camera" />
+      <p>Compact Digital Camera</p>
+      <span>$99.00 - $160.00</span>
+    </div>
+    <div class="related-item">
+      <img src="./images/Cannon camera, black, 30x zoom.jpeg" alt="Cannon Camera" />
+      <p>Canon 30x Zoom Camera</p>
+      <span>$220.00 - $299.00</span>
+    </div>
+  </div>
+</section>
+
+<!-- Discount Banner -->
+<div class="discount-banner">
+  <div class="banner-left">
+    <p>Super discount on more than 100 USD</p>
+    <small>Have you ever finally just write dummy info</small>
+  </div>
+  <div class="banner-right">
+    <button>Shop now</button>
+  </div>
+</div>
+  <!-- Footer -->
+
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="brand">
+      <h2><i class="fa-solid fa-bag-shopping"></i> Brand</h2>
+      <p>Best information about the company goes here but now lorem ipsum is</p>
+      <div class="social-icons">
+        <div><i class="fab fa-facebook-f"></i></div>
+        <div><i class="fab fa-twitter"></i></div>
+        <div><i class="fab fa-linkedin-in"></i></div>
+        <div><i class="fab fa-instagram"></i></div>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <div>
+        <h4>About</h4>
+        <p>About Us</p>
+        <p>Find store</p>
+        <p>Categories</p>
+        <p>Blogs</p>
+      </div>
+      <div>
+        <h4>Partnership</h4>
+        <p>About Us</p>
+        <p>Find store</p>
+        <p>Categories</p>
+        <p>Blogs</p>
+      </div>
+      <div>
+        <h4>Information</h4>
+        <p>Help Center</p>
+        <p>Money Refund</p>
+        <p>Shipping</p>
+        <p>Contact us</p>
+      </div>
+      <div>
+        <h4>For users</h4>
+        <p>Login</p>
+        <p>Register</p>
+        <p>Settings</p>
+        <p>My Orders</p>
+      </div>
+      <div class="get-app">
+        <h4>Get app</h4>
+        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="App Store" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2023 Ecommerce.</p>
+    <div class="lang">
+      <img src="https://flagcdn.com/w40/us.png" alt="flag" /> English <i class="fa-solid fa-chevron-up"></i>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

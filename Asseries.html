@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Listing Page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+  body { background: #f5f7fa; color: #333; }
+
+  /* header { background: #fff; border-bottom: 1px solid #eee; }
+  .top-row, .mid-row { display: flex; align-items: center; padding: 10px 30px; }
+  .top-row { justify-content: space-between; }
+  .logo { font-size: 24px; color: #2196f3; font-weight: bold; }
+  .search-area { flex: 1; max-width: 600px; margin: 0 30px; display: flex; gap: 8px; }
+  .search-area input, .search-area select { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+  .search-area button { padding: 8px 16px; background: #2196f3; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+  .actions { display: flex; gap: 24px; }
+  .action-item { text-align: center; font-size: 13px; color: #666; cursor: pointer; }
+  .action-item i { font-size: 18px; margin-bottom: 4px; }
+
+  .mid-row { background: #f9f9f9; border-bottom: 1px solid #eee; font-size: 14px; }
+  .mid-row span { margin-right: 24px; cursor: pointer; color: #555; transition: color .3s; }
+  .mid-row span:hover { color: #2196f3; }
+  .mid-row .right { margin-left: auto; display: flex; gap: 24px; }
+  .mid-row .right img { width: 24px; height: 16px; margin-left: 4px; } */
+
+      .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 10px 30px;
+      font-size: 14px;
+      color: #555;
+    }
+    .topbar-left {
+      display: flex;
+      gap: 20px;
+    }
+    .topbar-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .topbar-right img {
+      width: 24px;
+      height: 16px;
+      margin-left: 6px;
+    }
+    .topbar-left span:hover, .topbar-right span:hover {
+      color: #2196f3;
+      cursor: pointer;
+    }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: white; 
+  color: rgb(19, 18, 18);
+  gap: 15px;
+}
+
+.logo {
+  font-size: 24px;
+  color: blue;
+  font-weight: bold;
+}
+
+.search {
+  padding: 8px;
+  width: 300px;
+  margin-left: 25%;
+  border-radius: 4px;
+  border: none;
+}
+
+.category-dropdown {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.search-btn {
+  background-color: rgb(30, 115, 243);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  gap: 25px;
+  color: #111010;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.action-item i {
+    color: black;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+    main { flex: 1; }
+  .breadcrumb { padding: 16px 30px; background: #fff; font-size: 14px; color: #777; }
+    .header-main { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .header-main h2 { margin: 0; font-weight: normal; font-size: 20px; color: #333; }
+    .header-main .filters { display: flex; gap: 15px; align-items: center; }
+    .header-main .filters select, .header-main .filters input[type=checkbox] { margin-left: 5px; }
+
+  .products-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 30px; background: #fff; }
+  .products-header h2 { font-size: 18px; font-weight: normal; }
+  .products-header .filters { display: flex; align-items: center; gap: 16px; }
+  .products-header select, .products-header input[type=checkbox] { margin-left: 6px; }
+
+  .container { display: flex; padding: 20px 30px; gap: 20px; }
+  .sidebar { width: 240px; background: #fff; border: 1px solid #eee; border-radius: 6px; padding: 16px; }
+
+  .filter-section { margin-bottom: 20px; }
+  .filter-header { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .filter-list { list-style: none; }
+  .filter-list li { font-size: 14px; margin-bottom: 8px; }
+  .filter-list label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  .filter-list li:hover { color: #2196f3; }
+
+  .price-range { display: flex; align-items: center; gap: 4px; margin: 8px 0; }
+  .price-range input { width: 60px; padding: 4px 6px; font-size: 13px; border: 1px solid #ccc; border-radius: 3px; }
+  .apply-btn { padding: 6px 12px; background: #2196f3; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; }
+
+  /* .products { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .product-card { background: #fff; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; position: relative; transition: box-shadow .3s; display: flex; flex-direction: column; }
+  .product-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .product-card img { width: 100%; height: 180px; object-fit: contain; background: #fff; padding: 20px; }
+  .heart { position: absolute; top: 12px; right: 12px; font-size: 18px; color: #888; cursor: pointer; z-index: 1; }
+  .heart:hover { color: #e33251; }
+  .product-info { padding: 16px; font-size: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .price-section { display: flex; align-items: center; gap: 10px; }
+  .price-section .current { color: #2196f3; font-size: 16px; font-weight: bold; }
+  .price-section .old { color: #aaa; text-decoration: line-through; font-size: 14px; }
+  .rating-stars { display: flex; align-items: center; gap: 4px; font-size: 13px; }
+  .rating-stars .fa-star { color: #f5a623; }
+  .rating-stars .fa-star.grey { color: #ccc; }
+  .rating-stars span { margin-left: 4px; color: #777; }
+    .product-card h4{ font-size: 15px; color: #222; margin-bottom: 4px; height: 38px; overflow: hidden;} */
+
+    .products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  padding: 20px;
+  background: #fff;
+}
+
+.product-info {
+  padding: 16px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.product-info h4 {
+  font-size: 15px;
+  color: #222;
+  margin: 0;
+  height: 38px;
+  overflow: hidden;
+  font-weight: 600;
+}
+
+.product-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-section .current {
+  color: #2196f3;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.price-section .old {
+  color: #aaa;
+  text-decoration: line-through;
+  font-size: 14px;
+}
+
+.rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.rating-stars .fa-star {
+  color: #f5a623;
+}
+
+.rating-stars .fa-star.grey {
+  color: #ccc;
+}
+
+.rating-stars span {
+  margin-left: 4px;
+  color: #777;
+}
+/* .product-card h4 { font-size: 15px; color: #222; margin-bottom: 4px; height: 38px; overflow: hidden;} */
+.product-bottom h4 {
+  font-size: 15px;
+  color: #222;
+  margin-top: 10px; /* ⭐️ Yeh line important hai */
+  line-height: 1.6;
+}
+
+
+.heart-box {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.heart {
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.heart:hover {
+  color: #e33251;
+}
+
+  .pagination { display: flex; justify-content: flex-end; gap: 8px; padding: 20px 30px; }
+  .pagination button { padding: 8px 12px; font-size: 14px; background: #fff; border: 1px solid #ddd; cursor: pointer; }
+  .pagination .active { background: #2196f3; color: #fff; }
+  .pagination button:disabled { color: #aaa; cursor: default; }
+  .pagination button:hover:not(.active):not(:disabled) { background: #f0f0f0; }   
+  .newsletter {
+  background: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+}
+.newsletter h2{
+    color: black;
+}
+.newsletter h3 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 15px;
+}
+.newsletter input {
+  padding: 10px;
+  width: 300px;
+  max-width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+.newsletter button {
+  padding: 10px 18px;
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Footer Styles */
+
+
+.footer {
+  background: #ffffff;
+  padding: 60px 80px;
+  color: #333;
+  font-family: sans-serif;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 60px;
+  text-align: left;
+}
+
+.brand {
+  max-width: 240px;
+  flex: 1;
+}
+
+.brand h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2196f3;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.brand p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  
+}
+
+.social-icons div {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f8f5f5;
+  background: rgb(161, 161, 161);
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.footer-links {
+  display: flex;
+  flex: 3;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: flex-start;
+}
+
+.footer-links > div {
+  min-width: 140px;
+}
+
+.footer-links h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.footer-links p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+}
+
+.get-app img {
+  width: 120px;
+  margin: 8px 0;
+  display: block;
+}
+
+.footer-bottom {
+  margin-top: 50px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.footer-bottom .lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- <header>
+  <div class="top-row">
+    <div class="logo"><i class="fa-solid fa-bag-shopping"></i> Brand</div>
+    <div class="search-area">
+      <input type="text" placeholder="Search here...">
+      <select><option>All category</option></select>
+      <button>Search</button>
+    </div>
+    <div class="actions">
+      <div class="action-item"><i class="fa-regular fa-user"></i><span> Profile</span></div>
+      <div class="action-item"><i class="fa-regular fa-envelope"></i><span> Message</span></div>
+      <div class="action-item"><i class="fa-solid fa-box"></i><span> Orders</span></div>
+      <div class="action-item"><i class="fa-solid fa-cart-shopping"></i><span> My cart</span></div>
+    </div>
+  </div>
+  <div class="mid-row">
+    <span>All Categories</span><span>Hot Offers</span><span>Gift Boxes</span>
+    <span>Projects</span><span>Menu Items</span><span>Help</span>
+    <div class="right">
+      <span>English, USD <i class="fa-solid fa-chevron-down"></i></span>
+      <span>Ship to <i class="fa-solid fa-chevron-down"></i><img src="https://flagcdn.com/w40/de.png"></span>
+    </div>
+  </div>
+</header> -->
+ <header class="topbar">
+  <div class="logo"><i class="fa-solid fa-bag-shopping"></i>Brand</div>
+  
+  <input type="text" class="search" placeholder="Search here..." />
+  
+  <select class="category-dropdown">
+    <option>All category</option>
+    <option>Automobiles</option>
+    <option>Clothes and wear</option>
+    <option>Computer and tech</option>
+    <option>Home interiors</option>
+  </select>
+
+  <button class="search-btn">Search</button>
+
+  <div class="actions">
+    <div class="action-item">
+      <i class="fa-regular fa-user"></i>
+      <span>Profile</span>
+    </div>
+    <div class="action-item">
+      <i class="fa-regular fa-envelope"></i>
+      <span>Message</span>
+    </div>
+    <div class="action-item">
+      <i class="fa-solid fa-box"></i>
+      <span>Orders</span>
+    </div>
+    <div class="action-item">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>My cart</span>
+    </div>
+  </div>
+</header>
+<div class="topbar">
+   <div class="topbar-left">
+     <span><a href="index.html" style="text-decoration: none; color: inherit;">All Categories</a></span>
+  <span>Hot Offers</span>
+  <span>Gift Boxes</span>
+  <span>Projects</span>
+  <span>Menu Items</span> 
+  <span>Help</span>
+
+  <span><a href="product-listing.html" style="text-decoration: none; color: inherit;">Product</a></span>
+  <span><a href="Asseries.html" style="text-decoration: none; color: inherit;">Best product</a></span>
+  <!-- <span><a href="faq.html" style="text-decoration: none; color: inherit;">FAQ</a></span> -->
+</div>
+  <div class="topbar-right">
+    <span>English,USD <i class="fa-solid fa-chevron-down"></i></span>
+    <!-- <span>USD</span> -->
+    <span>Ship to <i class="fa-solid fa-chevron-down"></i><img src="https://flagcdn.com/w40/de.png" alt="Germany"></span>
+  </div>
+</div>
+
+<div class="breadcrumb">Home &gt; Clothing &gt; Men’s wear &gt; Summer clothing</div>
+
+<!-- <div class="products-header">
+  <h2>12,911 items in Mobile accessory</h2>
+  <div class="filters">
+    <label><input type="checkbox"> Verified only</label>
+    <select><option>Featured</option></select>
+  </div>
+</div> -->
+<main class="main"></main>
+<div class="header-main">
+        <h2>12,911 items in Mobile accessory</h2>
+        <div class="filters">
+          <input type="checkbox"> Verified only
+          <select><option>Featured</option></select>
+          <button><i class="fa-solid fa-grip"></i></button>
+          <button><i class="fa-solid fa-bars"></i></button>
+        </div>
+      </div>
+      </main>
+<div class="container">
+  <aside class="sidebar">
+    <div class="filter-section">
+      <div class="filter-header">Categories</div>
+      <ul class="filter-list">
+        <li><label><input type="checkbox"> Mobile accessory</label></li>
+        <li><label><input type="checkbox"> Electronics</label></li>
+        <li><label><input type="checkbox"> Smartphones</label></li>
+        <li><label><input type="checkbox"> Modern tech</label></li>
+        <li><a href="#" style="color:#2196f3; font-size:13px;">See all</a></li>
+      </ul>
+    </div>
+    <div class="filter-section">
+      <div class="filter-header">Brands</div>
+      <ul class="filter-list">
+        <li><label><input type="checkbox"> Samsung</label></li>
+        <li><label><input type="checkbox"> Apple</label></li>
+        <li><label><input type="checkbox"> Huawei</label></li>
+        <li><label><input type="checkbox"> Poco</label></li>
+        <li><a href="#" style="color:#2196f3; font-size:13px;">See all</a></li>
+      </ul>
+    </div>
+    <div class="filter-section">
+      <div class="filter-header">Features</div>
+      <ul class="filter-list">
+        <li><label><input type="checkbox"> Metallic</label></li>
+        <li><label><input type="checkbox"> Plastic cover</label></li>
+        <li><label><input type="checkbox"> Waterproof</label></li>
+        <li><a href="#" style="color:#2196f3; font-size:13px;">See all</a></li>
+      </ul>
+    </div>
+    <div class="filter-section">
+      <div class="filter-header">Price range</div>
+      <div class="price-range"><input type="number" placeholder="Min"><span>–</span><input type="number" placeholder="Max"></div>
+      <button class="apply-btn">Apply</button>
+    </div>
+    <div class="filter-section">
+      <div class="filter-header">Ratings</div>
+      <ul class="filter-list">
+        <li><label><input type="checkbox">
+             <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star "></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+        </li>
+         <li>
+            <label><input type="checkbox">
+             <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+             <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+          </div>
+        </li>
+        <li>
+            <label><input type="checkbox">
+             <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+          </div>
+        </li>
+        <li>
+            <label><input type="checkbox">
+             <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- <section class="products">
+  </section> -->
+ <div class="products">
+  <!-- Product 1 -->
+  <div class="product-card">
+    <img src="./images/camera.png" alt="Product 1">
+    <div class="product-info">
+      
+      <div class="product-bottom">
+        <div>
+          <div class="price-section">
+            <span class="current">$99.50</span>
+            <span class="old">$129.00</span>
+          </div>
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <span>7.5</span>
+          </div>
+          <h4>Action Camera – Black</h4>
+        </div>
+        <div class="heart-box"><i class="fa-regular fa-heart heart"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product 2 -->
+  <div class="product-card">
+    <img src="./images/iPhone 12 - Red.jpg" alt="Product 2">
+    <div class="product-info">
+     
+      <div class="product-bottom">
+        <div>
+          <div class="price-section">
+            <span class="current">$99.50</span>
+            <span class="old">$129.00</span>
+          </div>
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <span>6.0</span>
+          </div>
+           <h4>iPhone 12 - Red</h4>
+        </div>
+        <div class="heart-box"><i class="fa-regular fa-heart heart"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product 3 -->
+  <div class="product-card">
+    <img src="./images/Apple Watch Series 7.jpg" alt="Product 3">
+    <div class="product-info">
+     
+      <div class="product-bottom">
+        <div>
+          <div class="price-section">
+            <span class="current">$199.00</span>
+            <span class="old">$250.00</span>
+          </div>
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <span>4.0</span>
+          </div>
+           <h4>Apple Watch Series 7</h4>
+        </div>
+        <div class="heart-box"><i class="fa-regular fa-heart heart"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product 4 -->
+  <div class="product-card">
+    <img src="./images/Samsung Galaxy S21.jpg" alt="Product 4">
+    <div class="product-info">
+      
+      <div class="product-bottom">
+        <div>
+          <div class="price-section">
+            <span class="current">$119.00</span>
+            <span class="old">$150.00</span>
+          </div>
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <span>2.0</span>
+          </div>
+          <h4>Samsung Galaxy S21</h4>
+        </div>
+        <div class="heart-box"><i class="fa-regular fa-heart heart"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product 5 -->
+  <div class="product-card">
+    <img src="./images/Lenovo ThinkPad T490.jpg" alt="Product 5">
+    <div class="product-info">
+      
+      <div class="product-bottom">
+        <div>
+          <div class="price-section">
+            <span class="current">$899.00</span>
+            <span class="old">$999.00</span>
+          </div>
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <span>6.0</span>
+          </div>
+          <h4>Lenovo ThinkPad T490</h4>
+        </div>
+        <div class="heart-box"><i class="fa-regular fa-heart heart"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product 6 -->
+  <div class="product-card">
+    <img src="./images/MacBook Pro M2.jpg" alt="Product 6">
+    <div class="product-info">
+     
+      <div class="product-bottom">
+        <div>
+          <div class="price-section">
+            <span class="current">$1299.00</span>
+            <span class="old">$1499.00</span>
+          </div>
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <span>9.0</span>
+          </div>
+           <h4>MacBook Pro M2</h4>
+        </div>
+        <div class="heart-box"><i class="fa-regular fa-heart heart"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product 7 -->
+  <div class="product-card">
+    <img src="./images/Xiaomi Mi 11 Lite.jpg" alt="Product 7">
+    <div class="product-info">
+     
+      <div class="product-bottom">
+        <div>
+          <div class="price-section">
+            <span class="current">$299.00</span>
+            <span class="old">$350.00</span>
+          </div>
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <span>1.5</span>
+          </div>
+           <h4>Xiaomi Mi 11 Lite</h4>
+        </div>
+        <div class="heart-box"><i class="fa-regular fa-heart heart"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product 8 -->
+  <div class="product-card">
+    <img src="./images/Huawei P50 Pocket.jpg" alt="Product 8">
+    <div class="product-info">
+      
+      <div class="product-bottom">
+        <div>
+          <div class="price-section">
+            <span class="current">$649.00</span>
+            <span class="old">$799.00</span>
+          </div>
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <span>5.0</span>
+          </div>
+          <h4>Huawei P50 Pocket</h4>
+        </div>
+        <div class="heart-box"><i class="fa-regular fa-heart heart"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product 9 -->
+  <div class="product-card">
+    <img src="./images/iPhone 14 Pro Max – Deep Purple.jpg" alt="Product 9">
+    <div class="product-info">
+      <!-- <h4>iPhone 14 Pro Max – Deep Purple</h4> -->
+      <div class="product-bottom">
+        <div>
+          <div class="price-section">
+            <span class="current">$1099.00</span>
+            <span class="old">$1299.00</span>
+          </div>
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <i class="fa-solid fa-star grey"></i>
+            <span>6.5</span>
+          </div>
+           <h4>iPhone 14 Pro Max – Deep Purple</h4>
+        </div>
+        <div class="heart-box"><i class="fa-regular fa-heart heart"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="pagination">
+  <button disabled>&laquo;</button>
+  <button class="active">1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>&raquo;</button>
+</div>
+
+ <!-- Newsletter -->
+  <section class="newsletter">
+    <h3>Subscribe on our newsletter</h3>
+    <p>Get daily news on upcoming offers from many suppliers all over the world</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Email" />
+      <button>Subscribe</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="brand">
+      <h2><i class="fa-solid fa-bag-shopping"></i> Brand</h2>
+      <p>Best information about the company goes here but now lorem ipsum is</p>
+      <div class="social-icons">
+        <div><i class="fab fa-facebook-f"></i></div>
+        <div><i class="fab fa-twitter"></i></div>
+        <div><i class="fab fa-linkedin-in"></i></div>
+        <div><i class="fab fa-instagram"></i></div>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <div>
+        <h4>About</h4>
+        <p>About Us</p>
+        <p>Find store</p>
+        <p>Categories</p>
+        <p>Blogs</p>
+      </div>
+      <div>
+        <h4>Partnership</h4>
+        <p>About Us</p>
+        <p>Find store</p>
+        <p>Categories</p>
+        <p>Blogs</p>
+      </div>
+      <div>
+        <h4>Information</h4>
+        <p>Help Center</p>
+        <p>Money Refund</p>
+        <p>Shipping</p>
+        <p>Contact us</p>
+      </div>
+      <div>
+        <h4>For users</h4>
+        <p>Login</p>
+        <p>Register</p>
+        <p>Settings</p>
+        <p>My Orders</p>
+      </div>
+      <div class="get-app">
+        <h4>Get app</h4>
+        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="App Store">
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play">
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2023 Ecommerce.</p>
+    <div class="lang">
+      <img src="https://flagcdn.com/w40/us.png" alt="flag" /> English <i class="fa-solid fa-chevron-up"></i>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
