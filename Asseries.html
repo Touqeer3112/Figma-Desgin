@@ -254,6 +254,11 @@
   line-height: 1.6;
 }
 
+.action-item a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .heart-box {
   display: flex;
@@ -419,33 +424,8 @@
 </style>
 </head>
 <body>
-
-<!-- <header>
-  <div class="top-row">
-    <div class="logo"><i class="fa-solid fa-bag-shopping"></i> Brand</div>
-    <div class="search-area">
-      <input type="text" placeholder="Search here...">
-      <select><option>All category</option></select>
-      <button>Search</button>
-    </div>
-    <div class="actions">
-      <div class="action-item"><i class="fa-regular fa-user"></i><span> Profile</span></div>
-      <div class="action-item"><i class="fa-regular fa-envelope"></i><span> Message</span></div>
-      <div class="action-item"><i class="fa-solid fa-box"></i><span> Orders</span></div>
-      <div class="action-item"><i class="fa-solid fa-cart-shopping"></i><span> My cart</span></div>
-    </div>
-  </div>
-  <div class="mid-row">
-    <span>All Categories</span><span>Hot Offers</span><span>Gift Boxes</span>
-    <span>Projects</span><span>Menu Items</span><span>Help</span>
-    <div class="right">
-      <span>English, USD <i class="fa-solid fa-chevron-down"></i></span>
-      <span>Ship to <i class="fa-solid fa-chevron-down"></i><img src="https://flagcdn.com/w40/de.png"></span>
-    </div>
-  </div>
-</header> -->
  <header class="topbar">
-  <div class="logo"><i class="fa-solid fa-bag-shopping"></i>Brand</div>
+  <div class="logo"><i class="fa-solid fa-bag-shopping"></i></div>
   
   <input type="text" class="search" placeholder="Search here..." />
   
@@ -459,24 +439,32 @@
 
   <button class="search-btn">Search</button>
 
+  
   <div class="actions">
-    <div class="action-item">
+  <div class="action-item">
+    <a href="./Product-Detail.html" style="text-decoration: none; color: inherit;">
       <i class="fa-regular fa-user"></i>
       <span>Profile</span>
-    </div>
-    <div class="action-item">
-      <i class="fa-regular fa-envelope"></i>
-      <span>Message</span>
-    </div>
-    <div class="action-item">
-      <i class="fa-solid fa-box"></i>
-      <span>Orders</span>
-    </div>
-    <div class="action-item">
+    </a>
+  </div>
+
+  <div class="action-item">
+    <i class="fa-regular fa-envelope"></i>
+    <span>Message</span>
+  </div>
+
+  <div class="action-item">
+    <i class="fa-solid fa-box"></i>
+    <span>Orders</span>
+  </div>
+
+  <div class="action-item">
+    <a href="./cart.html" style="text-decoration: none; color: inherit;">
       <i class="fa-solid fa-cart-shopping"></i>
       <span>My cart</span>
-    </div>
+    </a>
   </div>
+</div>
 </header>
 <div class="topbar">
    <div class="topbar-left">
@@ -489,7 +477,6 @@
 
   <span><a href="product-listing.html" style="text-decoration: none; color: inherit;">Product</a></span>
   <span><a href="Asseries.html" style="text-decoration: none; color: inherit;">Best product</a></span>
-  <!-- <span><a href="faq.html" style="text-decoration: none; color: inherit;">FAQ</a></span> -->
 </div>
   <div class="topbar-right">
     <span>English,USD <i class="fa-solid fa-chevron-down"></i></span>
@@ -499,14 +486,6 @@
 </div>
 
 <div class="breadcrumb">Home &gt; Clothing &gt; Men’s wear &gt; Summer clothing</div>
-
-<!-- <div class="products-header">
-  <h2>12,911 items in Mobile accessory</h2>
-  <div class="filters">
-    <label><input type="checkbox"> Verified only</label>
-    <select><option>Featured</option></select>
-  </div>
-</div> -->
 <main class="main"></main>
 <div class="header-main">
         <h2>12,911 items in Mobile accessory</h2>
@@ -600,10 +579,8 @@
     </div>
   </aside>
 
-  <!-- <section class="products">
-  </section> -->
  <div class="products">
-  <!-- Product 1 -->
+ 
   <div class="product-card">
     <img src="./images/camera.png" alt="Product 1">
     <div class="product-info">
@@ -629,7 +606,6 @@
     </div>
   </div>
 
-  <!-- Product 2 -->
   <div class="product-card">
     <img src="./images/iPhone 12 - Red.jpg" alt="Product 2">
     <div class="product-info">
@@ -655,7 +631,6 @@
     </div>
   </div>
 
-  <!-- Product 3 -->
   <div class="product-card">
     <img src="./images/Apple Watch Series 7.jpg" alt="Product 3">
     <div class="product-info">
@@ -681,7 +656,6 @@
     </div>
   </div>
 
-  <!-- Product 4 -->
   <div class="product-card">
     <img src="./images/Samsung Galaxy S21.jpg" alt="Product 4">
     <div class="product-info">
@@ -707,7 +681,6 @@
     </div>
   </div>
 
-  <!-- Product 5 -->
   <div class="product-card">
     <img src="./images/Lenovo ThinkPad T490.jpg" alt="Product 5">
     <div class="product-info">
@@ -733,7 +706,6 @@
     </div>
   </div>
 
-  <!-- Product 6 -->
   <div class="product-card">
     <img src="./images/MacBook Pro M2.jpg" alt="Product 6">
     <div class="product-info">
@@ -759,7 +731,6 @@
     </div>
   </div>
 
-  <!-- Product 7 -->
   <div class="product-card">
     <img src="./images/Xiaomi Mi 11 Lite.jpg" alt="Product 7">
     <div class="product-info">
@@ -785,7 +756,6 @@
     </div>
   </div>
 
-  <!-- Product 8 -->
   <div class="product-card">
     <img src="./images/Huawei P50 Pocket.jpg" alt="Product 8">
     <div class="product-info">
@@ -811,11 +781,9 @@
     </div>
   </div>
 
-  <!-- Product 9 -->
   <div class="product-card">
     <img src="./images/iPhone 14 Pro Max – Deep Purple.jpg" alt="Product 9">
     <div class="product-info">
-      <!-- <h4>iPhone 14 Pro Max – Deep Purple</h4> -->
       <div class="product-bottom">
         <div>
           <div class="price-section">
@@ -846,7 +814,6 @@
   <button>&raquo;</button>
 </div>
 
- <!-- Newsletter -->
   <section class="newsletter">
     <h3>Subscribe on our newsletter</h3>
     <p>Get daily news on upcoming offers from many suppliers all over the world</p>
@@ -856,7 +823,7 @@
     </div>
   </section>
 
-  <!-- Footer -->
+
 
 <footer class="footer">
   <div class="footer-top">

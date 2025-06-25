@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background: #f8fafd; padding: 20px; }
+    .topbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: white; 
+  color: rgb(19, 18, 18);
+  gap: 15px;
+}
+
+.logo {
+  font-size: 24px;
+  color: blue;
+  font-weight: bold;
+}
+
+.search {
+  padding: 8px;
+  width: 300px;
+  margin-left: 25%;
+  border-radius: 4px;
+  border: none;
+}
+
+.category-dropdown {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.search-btn {
+  background-color: rgb(30, 115, 243);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.actions {
+  margin-left: auto;
+  display: flex;
+  gap: 25px;
+  color: #111010;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.action-item i {
+    color: black;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.cart-container { max-width: 1200px; margin: auto; }
+.cart-header { font-size: 20px; font-weight: 600; margin-bottom: 20px; }
+.cart-box {
+      display: flex;
+      gap: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      justify-content: space-between;
+    }
+
+.cart-items { flex: 2; }
+.cart-item {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+.cart-item img {
+      width: 70px;
+      height: 70px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: #eee;
+    }
+
+.item-info { flex: 1; }
+
+.item-title { font-weight: 600; margin-bottom: 5px; }
+
+.item-meta { font-size: 13px; color: gray; }
+
+.item-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+.item-actions button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+.remove-btn { background: #fce7e7; color: #e53935; }
+.save-btn {
+      background: blue;
+      color: white;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+.remove-all-btn {
+      background: white;
+      color: rgb(5, 30, 248);
+      border: 2px solid #1976d2;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 14px;
+      margin-left: 20px;
+      cursor: pointer;
+    }
+.qty-price {
+      text-align: right;
+      min-width: 100px;
+    }
+.action-item a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.summary {
+      flex: 1;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      height: fit-content;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+.summary label { font-weight: 600; }
+.summary input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+.summary button.apply {
+      margin-top: 10px;
+      background: #f6f6f8;
+      color: rgb(89, 159, 252);
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+.summary-details {
+      margin-top: 20px;
+    }
+.summary-details p {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+.total {
+      font-weight: 700;
+      font-size: 18px;
+    }
+.checkout-btn {
+      background: #00b207;
+      color: white;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      width: 100%;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+   
+.remove-all-btn {
+  background: white;
+  color: rgb(5, 30, 248);
+  border: 2px solid #1976d2;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 14px;
+  margin-left: 40%;  
+  cursor: pointer;
+}
+.payment-logos {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+  gap: 10px;
+}
+
+.payment-logos img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  flex: 1;
+  max-width: 70px;
+  opacity: 0.9;
+  transition: transform 0.3s;
+}
+
+.payment-logos img:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.save-btn {
+  background: blue;
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.features {
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+      margin: 40px 0 20px;
+    }
+.feature-item {
+      text-align: center;
+      flex: 1;
+    }
+.feature-item i {
+      font-size: 20px;
+      background: white;
+      padding: 12px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      color: #1976d2;
+    }
+.saved-boxes {
+      display: flex;
+      gap: 20px;
+    }
+.saved-box {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      width: 100%;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+.saved-box img {
+      width: 100%;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+.saved-box h4 {
+      font-size: 14px;
+      margin: 6px 0;
+    }
+.move-btn {
+      background: #e7f3fc;
+      color: #1976d2;
+      border: none;
+      padding: 6px 12px;
+      font-size: 13px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+.discount-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #0893e4 49.8%, #0961db 50.2%);
+  padding: 20px 30px;
+  border-radius: 5px;
+  margin: 50px 30px;
+  color: white;
+}
+
+.banner-left {
+  flex: 1;
+}
+
+.banner-left p {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.banner-left small {
+  font-size: 13px;
+  color: #f0f0f0;
+}
+
+.banner-right button {
+  background-color: #ff7b00;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.banner-right button:hover {
+  background-color: #e06d00;
+}
+    .footer {
+  background: #ffffff;
+  padding: 60px 80px;
+  color: #333;
+  font-family: sans-serif;
+}
+
+/* .footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 60px;
+  text-align: left;
+} */
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.brand {
+  max-width: 240px;
+  flex: 1;
+}
+
+.brand h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2196f3;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.brand p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  
+}
+
+.social-icons div {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f8f5f5;
+  background: rgb(161, 161, 161);
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.footer-links {
+  display: flex;
+  flex: 3;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: flex-start;
+}
+
+.footer-links > div {
+  min-width: 140px;
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.footer-links h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.footer-links p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer; 
+}
+
+.get-app img {
+  width: 120px;
+  margin: 8px 0;
+  display: block;
+  height: 40px; 
+  object-fit: contain;
+}
+
+.get-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.footer-bottom {
+  margin-top: 50px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.footer-bottom .lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+ </style>
+</head>
+<body>
+    
+     <header class="topbar">
+  <div class="logo"><i class="fa-solid fa-bag-shopping"></i></div>
+  
+  <input type="text" class="search" placeholder="Search here..." />
+  
+  <select class="category-dropdown">
+    <option>All category</option>
+    <option>Automobiles</option>
+    <option>Clothes and wear</option>
+    <option>Computer and tech</option>
+    <option>Home interiors</option>
+  </select>
+
+  <button class="search-btn">Search</button>
+
+  <div class="actions">
+  <div class="action-item">
+    <a href="./Product-Detail.html" style="text-decoration: none; color: inherit;">
+      <i class="fa-regular fa-user"></i>
+      <span>Profile</span>
+    </a>
+  </div>
+
+  <div class="action-item">
+    <i class="fa-regular fa-envelope"></i>
+    <span>Message</span>
+  </div>
+
+  <div class="action-item">
+    <i class="fa-solid fa-box"></i>
+    <span>Orders</span>
+  </div>
+
+  <div class="action-item">
+    <a href="./cart.html" style="text-decoration: none; color: inherit;">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>My cart</span>
+    </a>
+  </div>
+</div>
+</header>
+<div class="cart-container">
+  <div class="cart-header">My Cart (3)</div>
+
+  <div class="cart-box">
+    <div class="cart-items" id="cart-items"></div>
+    <div class="summary">
+      <label>Have a coupon?</label>
+      <input type="text" placeholder="Add coupon" />
+      <button class="apply">Apply</button>
+      <div class="summary-details">
+        <p><span>Subtotal:</span><span>$236.97</span></p>
+        <p><span>Discount:</span><span>- $10.00</span></p>
+        <p><span>Tax:</span><span>+ $5.00</span></p>
+        <p class="total"><span>Total:</span><span>$231.97</span></p>
+      </div>
+      <button class="checkout-btn">Checkout</button>
+     <div class="payment-logos">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" />
+  <img src="https://logowik.com/content/uploads/images/easypaisa11211.logowik.com.webp" alt="EasyPaisa" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Pay" />
+  <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Credit Card" />
+</div>
+ </div>
+    </div>
+
+<div style="display: flex; align-items: center;">
+  <button class="save-btn" onclick="location.href='./index.html'">
+  <i class="fas fa-arrow-left"></i> Back to Shopping
+</button>
+
+  <button class="remove-all-btn" onclick="removeAllItems()">
+    <i class="fas fa-trash"></i> Remove All
+  </button>
+</div>
+
+
+  <div class="features">
+    <div class="feature-item"><i class="fas fa-lock"></i><div>Secure payment</div></div>
+    <div class="feature-item"><i class="fas fa-headset"></i><div>Customer support</div></div>
+    <div class="feature-item"><i class="fas fa-truck"></i><div>Free delivery</div></div>
+  </div>
+
+  <div class="saved-boxes">
+    <!-- Same 4 saved boxes -->
+    <div class="saved-box"><img src="./images/Xiaomi Redmi 8 Original.jpeg"><strong>$99.50</strong><h4>Xiaomi Redmi 8 Original</h4><button class="move-btn">Move to cart</button></div>
+    <div class="saved-box"><img src="/images/Leather wallet.jpeg"><strong>$99.50</strong><h4>Leather Wallet for Men</h4><button class="move-btn">Move to cart</button></div>
+    <div class="saved-box"><img src="./images/Cannon camera, black, 30x zoom.jpeg"><strong>$99.50</strong><h4>Canon Camera EOS 2000, Black 10x zoom</h4><button class="move-btn">Move to cart</button></div>
+    <div class="saved-box"><img src="./images/gaming sat.jpeg"><strong>$99.50</strong><h4>Unleash the beast — Game without limits</h4><button class="move-btn">Move to cart</button></div>
+  </div>
+
+ <div class="discount-banner">
+  <div class="banner-left">
+    <p>Super discount on more than 100 USD</p>
+    <small>Have you ever finally just write dummy info</small>
+  </div>
+  <div class="banner-right">
+    <button>Shop now</button>
+  </div>
+</div>
+  <!-- Footer -->
+
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="brand">
+      <h2><i class="fa-solid fa-bag-shopping"></i> Brand</h2>
+      <p>Best information about the company goes here but now lorem ipsum is</p>
+      <div class="social-icons">
+        <div><i class="fab fa-facebook-f"></i></div>
+        <div><i class="fab fa-twitter"></i></div>
+        <div><i class="fab fa-linkedin-in"></i></div>
+        <div><i class="fab fa-instagram"></i></div>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <div>
+        <h4>About</h4>
+        <p>About Us</p>
+        <p>Find store</p>
+        <p>Categories</p>
+        <p>Blogs</p>
+      </div>
+      <div>
+        <h4>Partnership</h4>
+        <p>About Us</p>
+        <p>Find store</p>
+        <p>Categories</p>
+        <p>Blogs</p>
+      </div>
+      <div>
+        <h4>Information</h4>
+        <p>Help Center</p>
+        <p>Money Refund</p>
+        <p>Shipping</p>
+        <p>Contact us</p>
+      </div>
+      <div>
+        <h4>For users</h4>
+        <p>Login</p>
+        <p>Register</p>
+        <p>Settings</p>
+        <p>My Orders</p>
+      </div>
+      <div class="get-app">
+        <h4>Get app</h4>
+        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83" alt="App Store" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2023 Ecommerce.</p>
+    <div class="lang">
+      <img src="https://flagcdn.com/w40/us.png" alt="flag" /> English <i class="fa-solid fa-chevron-up"></i>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const items = [
+    {
+      title: 'New summer Men s castrol t-shirt',
+      price: 20.00,
+      qty: 1,
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOzARN1au9UE2mTFdHyZblrTloRt9PjnzlyA&s'
+    },
+    {
+      title: 'Action Camera – Black',
+      price: 99.50,
+      qty: 1,
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDfNVKO-6QuTmZ8jC8gOpVdYTRJ1Yijjzjtw&s'
+    },
+    {
+      title: 'Apple Watch Series 7',
+      price: 19.99,
+      qty: 1,
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStJbAj4YlpXbqvn2e6W6gDtlX8g2o3nIEpGA&s'
+    }
+  ];
+
+  function renderItems() {
+    const container = document.getElementById('cart-items');
+    container.innerHTML = "";
+    items.forEach((item, index) => {
+      container.innerHTML += `
+        <div class="cart-item">
+          <img src="${item.image}">
+          <div class="item-info">
+            <div class="item-title">${item.title}</div>
+            <div class="item-meta">Size: Medium, Color: Assorted, Material: Cotton<br>Seller: Artel Market</div>
+            <div class="item-actions">
+              <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+              <button class="save-btn">Save for later</button>
+            </div>
+          </div>
+          <div class="qty-price">
+            <div>$${item.price.toFixed(2)}</div>
+            <select>
+              ${[...Array(10)].map((_, i) => `<option ${item.qty === i+1 ? 'selected' : ''}>${i+1}</option>`).join('')}
+            </select>
+          </div>
+        </div>`;
+    });
+  }
+
+  function removeItem(index) {
+    if (confirm("Are you sure you want to remove this item?")) {
+      items.splice(index, 1);
+      renderItems();
+    }
+  }
+
+  function removeAllItems() {
+    if (confirm("Are you sure you want to remove all items?")) {
+      items.length = 0;
+      renderItems();
+    }
+  }
+
+  renderItems();
+</script>
+</body>
+</html>

@@ -215,6 +215,11 @@
     .pagination button { padding: 6px 12px; border: 1px solid #ddd; background: #fff; cursor: pointer; }
     .pagination button.active { background: #2196f3; color: #fff; }
     .pagination button:disabled { color: #aaa; cursor: default; }
+.action-item a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
     /* Newsletter & Footer */
     /* .newsletter { background: #f1f1f1; padding: 30px; text-align: center; }
@@ -381,8 +386,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Header -->
   <header class="topbar">
   <div class="logo"><i class="fa-solid fa-bag-shopping"></i><a href="index.html">Brand</a></div>
   
@@ -399,23 +402,30 @@
   <button class="search-btn">Search</button>
 
   <div class="actions">
-    <div class="action-item">
+  <div class="action-item">
+    <a href="./Product-Detail.html" style="text-decoration: none; color: inherit;">
       <i class="fa-regular fa-user"></i>
       <span>Profile</span>
-    </div>
-    <div class="action-item">
-      <i class="fa-regular fa-envelope"></i>
-      <span>Message</span>
-    </div>
-    <div class="action-item">
-      <i class="fa-solid fa-box"></i>
-      <span>Orders</span>
-    </div>
-    <div class="action-item">
+    </a>
+  </div>
+
+  <div class="action-item">
+    <i class="fa-regular fa-envelope"></i>
+    <span>Message</span>
+  </div>
+
+  <div class="action-item">
+    <i class="fa-solid fa-box"></i>
+    <span>Orders</span>
+  </div>
+
+  <div class="action-item">
+    <a href="./cart.html" style="text-decoration: none; color: inherit;">
       <i class="fa-solid fa-cart-shopping"></i>
       <span>My cart</span>
-    </div>
+    </a>
   </div>
+</div>
 </header>
 <div class="topbar">
    <div class="topbar-left">
@@ -428,7 +438,6 @@
 
   <span><a href="product-listing.html" style="text-decoration: none; color: inherit;">Product</a></span>
   <span><a href="Asseries.html" style="text-decoration: none; color: inherit;">Best product</a></span>
-  <!-- <span><a href="faq.html" style="text-decoration: none; color: inherit;">FAQ</a></span> -->
 </div>
   <div class="topbar-right">
     <span>English,USD <i class="fa-solid fa-chevron-down"></i></span>
@@ -488,13 +497,6 @@
         <label><input type="radio" name="condition"> New</label>
         <label><input type="radio" name="condition"> Used</label>
       </div>
-
-      <!-- <div class="filter-group">
-        <label><strong>Rating</strong></label>
-        <label><input type="checkbox"> 4★ & up</label>
-        <label><input type="checkbox"> 3★ & up</label>
-        <label><input type="checkbox"> All Ratings</label>
-      </div> -->
       <div class="filter-section">
       <div class="filter-header">Ratings</div>
       <ul class="filter-list">
@@ -541,7 +543,7 @@
     </div>
     </aside>
 
-    <!-- Products -->
+  
     <main class="main">
       <div class="breadcrumb">Home > Clothing > Men’s wear > Summer clothing</div>
       <div class="header-main">
@@ -555,7 +557,7 @@
       </div>
 
       <ul class="product-list">
-        <!-- One Product Item -->
+        
         <li class="product-item">
           <img src="./images/smart phone.jpeg" alt="Canon EOS">
           <div class="product-info">
@@ -578,7 +580,6 @@
           </div>
           <div class="heart"><i class="fa-regular fa-heart"></i></div>
         </li>
-        <!-- Duplicate items -->
         <!-- 2 -->
             <li class="product-item">
           <img src="./images/laptop3.jpeg" alt="laptop">
@@ -696,7 +697,7 @@
         </li>
       </ul>
 
-      <!-- Pagination -->
+     
       <div class="pagination">
         <button disabled>&laquo;</button>
         <button class="active">1</button>
@@ -704,14 +705,9 @@
         <button>3</button>
         <button>&raquo;</button>
       </div>
-
-    
-
-      <!-- Footer -->
-      
     </main>
   </div>
-<!-- Newsletter -->
+
 <div class="newsletter">
     
   <h2>Subscribe on our newsletter</h2>
@@ -719,8 +715,6 @@
   <input type="email" placeholder="Email">
   <button>Subscribe</button>
 </div>
-
-<!-- Footer -->
 
 <footer class="footer">
   <div class="footer-top">
@@ -784,7 +778,6 @@
 
 
   <script>
-    // Pagination JS is optional...
     const pages = document.querySelectorAll('.pagination button:not(:disabled)');
     pages.forEach(btn => btn.addEventListener('click', () => {
       document.querySelector('.pagination .active').classList.remove('active');
